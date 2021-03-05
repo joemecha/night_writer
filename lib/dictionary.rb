@@ -1,6 +1,6 @@
 class Dictionary
   attr_reader :english_braille,
-              :numbers_braille 
+              :numbers_braille
 
   def initialize
     @english_braille = {
@@ -50,5 +50,15 @@ class Dictionary
       "0" => [[".", "0"], ["0", "0"], [".", "."]],
       "#" => [[".", "0"], [".", "0"], ["0", "0"]]
     }
+  end
+
+  def char_to_braille(char)
+    if english_braille.has_key?(char)
+      return english_braille[char]
+    elsif numbers_braille.has_key?(char)
+      return numbers_braille["#"], numbers_braille[char]
+    else
+      return [["X", "X"], ["X", "X"], ["X", "X"]]
+    end
   end
 end

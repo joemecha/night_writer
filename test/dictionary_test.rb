@@ -37,4 +37,14 @@ class DictionaryTest < Minitest::Test
     assert_equal true, @dictionary.numbers_braille.has_key?("#")
     assert_equal expected3, @dictionary.numbers_braille["#"]
   end
+
+  def test_char_to_braille
+    char = "a"
+    expected = [["0", "."], [".", "."], [".", "."]]
+    char2 = "8"
+    expected2 = [[".", "0"], [".", "0"], ["0", "0"]], [["0", "."], ["0", "0"], [".", "."]]
+
+    assert_equal expected, @dictionary.char_to_braille(char)
+    assert_equal expected2, @dictionary.char_to_braille(char2)
+  end
 end
