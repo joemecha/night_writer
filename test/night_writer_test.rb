@@ -11,13 +11,8 @@ class NightWriterTest < Minitest::Test
     assert_instance_of NightWriter, @night_writer
   end
 
-  def test_it_has_attributes
-    skip
-    assert_equal
-  end
-
   def test_prints_message_to_terminal
-    skip 
+    skip
     assert_output(stdout = /Created 'braille.txt' containing 4 characters/,
                   stderr = nil)
   end
