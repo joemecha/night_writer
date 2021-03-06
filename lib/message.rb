@@ -14,14 +14,18 @@ class Message
   def add_content(characters)
     if characters.class == String
       @content += characters
-      @character_count = @content.length
       is_braille?
+      if braille
+        @character_count = @content.length - @content.count("\n") / 2
+      else
+        @character_count = @content.length - @content.count("\n")
+      end
     end
   end
 
   def is_braille?
     @braille = @content.count("abcdefghijklmnopqrstuvwxyz").zero?
     @english != @braille
-    return @braille  
+    return @braille
   end
 end
