@@ -5,7 +5,6 @@ require './lib/message'
 class MessageTest < Minitest::Test
   def setup
     @message1 = Message.new
-    @message2 = Message.new
   end
 
   def test_it_exists
@@ -27,13 +26,15 @@ class MessageTest < Minitest::Test
   end
 
   def test_is_braille
+    @message2 = Message.new
     characters = "..0.00.0"
-    @message1.add_content(characters)
+    @message2.add_content(characters)
 
-    characters2 = "abc."
-    @message2.add_content(characters2)
+    assert_equal true, @message2.is_braille?
 
-    assert_equal true, @message1.braille
-    assert_equal false, @message2.braille 
+    @message3 = Message.new
+    characters = "abc."
+    @message3.add_content(characters)
+    assert_equal false, @message3.is_braille?
   end
 end

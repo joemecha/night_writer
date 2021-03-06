@@ -21,6 +21,7 @@ class Message
 
   def is_braille?
     @braille = @content.count("abcdefghijklmnopqrstuvwxyz").zero?
-    @english != @content.count("abcdefghijklmnopqrstuvwxyz").zero?
+    @english != @braille
+    return @braille  
   end
 end
