@@ -21,9 +21,15 @@ class TranslatorTest < Minitest::Test
   end
 
   def test_translate_to_braille
-    expected = [[["0", "."], [".", "."], [".", "."]],
-                [["0", "."], ["0", "."], [".", "."]],
-                [["0", "0"], [".", "."], [".", "."]]]
+    expected = "0.0.00\n..0...\n......"
     assert_equal expected, @translator.translate_to_braille
   end
+
+  def test_translate
+    expected = "0.0.00\n..0...\n......"
+    assert_equal expected, @translator.translate
+  end
+
+  def test_width_greater_than_40
+  end 
 end
