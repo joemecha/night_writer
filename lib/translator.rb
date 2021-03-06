@@ -19,7 +19,9 @@ class Translator
 
   def translate_to_braille
     @braille_message = Message.new
-    array_of_chars = @message.content.chars
+    array_of_chars = @message.content
+                             .gsub(/[^a-z]/i, "$")
+                             .chars
     array_of_braille = create_array_of_braille(array_of_chars)
     string_of_braille = convert_braille_array_to_string(array_of_braille)
     @braille_message.add_content(string_of_braille)
@@ -50,4 +52,14 @@ class Translator
     end
     braille_string
   end
+
+  # def char_to_braille(char)
+  #   if english_braille.has_key?(char)
+  #     return english_braille[char]
+  #   elsif numbers_braille.has_key?(char)
+  #     return numbers_braille["#"], numbers_braille[char]
+  #   else
+  #     return [["X", "X"], ["X", "X"], ["X", "X"]]
+  #   end
+  # end
 end

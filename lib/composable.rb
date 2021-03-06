@@ -1,14 +1,14 @@
 module Composable
   def read_message_file(file_name)
-    @message = File.readlines(file_name).each do |line|
-      @read_file_chars += line.chomp.length
-    end
-    @message
+    contents = File.readlines(file_name).map do |line|
+      line.chomp
+    end 
+    contents
   end
 
-  def write_file(file_name)
+  def write_file(file_name, new_contents)
     write_file = File.open(file_name, 'w')
-    write_file.puts @message
+    write_file.puts new_contents
     write_file.close
   end
 

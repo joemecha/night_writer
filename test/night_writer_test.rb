@@ -2,7 +2,9 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/night_writer'
+require '.lib/translator'
 require './lib/dictionary'
+require '.lib/message'
 
 class NightWriterTest < Minitest::Test
   def setup

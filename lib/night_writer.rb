@@ -1,37 +1,35 @@
-require './lib/dictionary'
 require './lib/composable'
+require './lib/translator'
+require './lib/dictionary'
+require './lib/message'
 
 class NightWriter
   include Composable
 
-  attr_reader :dictionary
+  attr_reader :translator
 
-  def initialize(dictionary)
-    @dictionary = dictionary
+  def initialize
+    # @dictionary = dictionary
     @read_file_name = ARGV[0]
     @write_file_name = ARGV[1]
-    @message = ""
     @read_file_chars = 0
   end
 
   def compose
-    read_message_file(@read_file_name)
-    write_file(@write_file_name)
-    message_to_user
-  end
+    message = Message.new
+    contents = read_message_file(@read_file_name).join
 
-  def translate_to_braille
-    array_of_chars = @message.chars
-    array_of_braille = array_of_chars.map do |char|
-      english_braille[char]
-    end
-    array_of_braille
+    message.add_content(contents)
+    @read_file_chars = message.character_count
+    translator = Translator.new(message)
+    new_contents = translator.translate
+
+    write_file(@write_file_name, new_contents)
+
+    message_to_user
   end
 end
 
 # ============================================================================
-@dictionary = Dictionary.new
-night_writer = NightWriter.new(@dictionary)
+night_writer = NightWriter.new
 night_writer.compose
-
-night_writer.translate_to_braille
