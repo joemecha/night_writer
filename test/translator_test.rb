@@ -30,6 +30,22 @@ class TranslatorTest < Minitest::Test
     assert_equal expected, @translator.translate
   end
 
+  def test_create_array_of_braille
+    array = ["a", "b", "c"]
+    expected = [[["0", "."], [".", "."], [".", "."]], [["0", "."], ["0", "."],
+                [".", "."]], [["0", "0"], [".", "."], [".", "."]]]
+
+    assert_equal expected, @translator.create_array_of_braille(array)
+  end
+
+  def test_convert_braille_array_to_string
+    array = [[["0", "."], [".", "."], [".", "."]], [["0", "."], ["0", "."],
+                [".", "."]], [["0", "0"], [".", "."], [".", "."]]]
+    expected = "0.0.00\n..0...\n......"
+
+    assert_equal expected, @translator.convert_braille_array_to_string(array)
+  end
+
   def test_width_greater_than_40
-  end 
+  end
 end
