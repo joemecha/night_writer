@@ -57,12 +57,18 @@ ruby (note: '$' is not typed).
 
 ## Features
 List of features ready and TODOs for future development
-* ???
-* ???
-* ???
+* Program uses command line ARGV for external file reading and writing
+* English messages are translated into Braille characters, which are written to an external file.
+* Valid characters: " !',-.?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP
+QRSTUVWXYZ"_Note: uppercase letters are currently rendered as lowercase_
+* Program handles invalid characters by returning a blank
+* Text wrapping of any length above 80 characters
 
 To-do list:
-* Project is currently in _"Iteration 1"_ of development
+* Project is currently in _"Iteration 3"_ of development
+* Braille-to-English translation in progress
+* Refactoring
+* Support for additional character types
 
 ## Status
 Project is: _in progress_
@@ -73,4 +79,4 @@ Created by
 
 ~ feel free to contact me ~
 
-![Braille Image](/images/braille.jpg "braille image")
+![Braille image](/images/braille_image.jpg "braille image")

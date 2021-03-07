@@ -27,15 +27,13 @@ class TranslatorTest < Minitest::Test
   end
 
 def test_translate_to_english
-    skip
-    # CONTINUE WORKING ON THIS METHOD
-    characters_2 = "0.0.00\n..0...\n......"
+    characters_2 = "000.00\n.0.00.\n......"
     message_2 = Message.new
     message_2.add_content(characters_2)
-    translator2 = Translator.new(@message_2)
+    translator2 = Translator.new(message_2)
     expected = "def"
 
-    assert_equal expected, @translator2.translate_to_english
+    assert_equal expected, translator2.translate_to_english
   end
 
   def test_translate
