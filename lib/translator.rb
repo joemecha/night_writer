@@ -39,19 +39,56 @@ class Translator
 
   def convert_braille_array_to_string(array)
     braille_string = ""
-    array.each do |character|
-      braille_string += character[0].join
+    braille_string_1 = ""
+
+    # Turn into a helper method
+    if array.length <= 40
+      array.each do |character|
+        braille_string += character[0].join
+      end
+      braille_string += "\n"
+      array.each do |character|
+        braille_string += character[1].join
+      end
+      braille_string += "\n"
+      array.each do |character|
+        braille_string += character[2].join
+      end
+      braille_string
+
+    else while array.length > 40 do
+        array_1 = array[0..39]
+        array = array[40..(array.length)]
+        # Make helper method see above
+        array_1.each do |character|
+          braille_string_1 += character[0].join
+        end
+        braille_string_1 += "\n"
+        array_1.each do |character|
+          braille_string_1 += character[1].join
+        end
+        braille_string_1 += "\n"
+        array_1.each do |character|
+          braille_string_1 += character[2].join
+        end
+        braille_string_1 += "\n\n"
+      end
+
+      array.each do |character|
+        braille_string += character[0].join
+      end
+      braille_string += "\n"
+      array.each do |character|
+        braille_string += character[1].join
+      end
+      braille_string += "\n"
+      array.each do |character|
+        braille_string += character[2].join
+      end
+      braille_string = braille_string_1 + braille_string
     end
-    braille_string += "\n"
-    array.each do |character|
-      braille_string += character[1].join
-    end
-    braille_string += "\n"
-    array.each do |character|
-      braille_string += character[2].join
-    end
-    braille_string
   end
+end
 
   # def char_to_braille(char)
   #   if english_braille.has_key?(char)
@@ -62,4 +99,3 @@ class Translator
   #     return [["X", "X"], ["X", "X"], ["X", "X"]]
   #   end
   # end
-end
