@@ -22,7 +22,7 @@ class Translator
     @braille_message = Message.new
     array_of_chars = @message.content
                              .downcase
-                             .gsub(/[^a-z]/i, "$")
+                             .gsub(/[^a-z .,]/i, "$")
                              .chars
     array_of_braille = create_array_of_braille(array_of_chars)
     string_of_braille = convert_braille_array_to_string(array_of_braille)
@@ -31,8 +31,26 @@ class Translator
   end
 
   def translate_to_english
+    # WORKING ON THIS METHOD NOW
     @english_message = Message.new
-    array_of_chars = @message.content
+    # Add flow control to handle more than a 3-line row of braille
+    braille_input_split = @message.content
+                                  .gsub(/[^0.]/, "$")
+                                  .split("\n")
+    top_line = braille_input_split[0].chars
+    middle_line = braille_input_split[1].chars
+    bottom_line = braille_input_split[2].chars
+
+    array_of_chars = []
+    Until top_line.nil? do
+      array_of_chars << [([top_line[0] + top_line[1]]),
+                          ([middle_line[0] + middle_line[1]]),
+                          ([bottom_line[0] + bottom_line[1]])]
+      top_line.shift(2)
+      middle_line.shift(2)
+      bottom_line.shift(2)
+    end
+    # require "pry"; binding.pry
   end
 
   def create_array_of_braille(array)
@@ -48,16 +66,16 @@ class Translator
     if array.length <= 40
       stringify_and_wrap_braille_arrays(array, braille_string)
 
-    else while array.length > 40 do
-      array_1 = array[0..39]
-      array = array[40..(array.length)]
-      stringify_and_wrap_braille_arrays(array_1, braille_string_1)
-      require "pry"; binding.pry
-      braille_string_1 += "\n\n"
-    end
+    else
+      while array.length > 40
+        array_1 = array[0..39]
+        array = array[40..(array.length)]
+        string_memo = stringify_and_wrap_braille_arrays(array_1, braille_string_1)
 
-      stringify_and_wrap_braille_arrays(array, braille_string)
-      braille_string = braille_string_1 + braille_string
+        braille_string_1 += string_memo + "\n\n"
+      end
+      string_memo = stringify_and_wrap_braille_arrays(array, braille_string)
+      braille_string = braille_string_1 + string_memo
     end
   end
 
