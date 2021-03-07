@@ -13,13 +13,15 @@ class Translator
       translate_to_braille
       @braille_message.content
     else
-      translate_to_english
+      # translate_to_english
+      # @english_message.content
     end
   end
 
   def translate_to_braille
     @braille_message = Message.new
     array_of_chars = @message.content
+                             .downcase
                              .gsub(/[^a-z]/i, "$")
                              .chars
     array_of_braille = create_array_of_braille(array_of_chars)
@@ -44,15 +46,15 @@ class Translator
     braille_string_1 = ""
 
     if array.length <= 40
-      require "pry"; binding.pry
       stringify_and_wrap_braille_arrays(array, braille_string)
 
     else while array.length > 40 do
-        array_1 = array[0..39]
-        array = array[40..(array.length)]
-        stringify_and_wrap_braille_arrays(array_1, braille_string_1)
-        braille_string_1 += "\n\n"
-      end
+      array_1 = array[0..39]
+      array = array[40..(array.length)]
+      stringify_and_wrap_braille_arrays(array_1, braille_string_1)
+      require "pry"; binding.pry
+      braille_string_1 += "\n\n"
+    end
 
       stringify_and_wrap_braille_arrays(array, braille_string)
       braille_string = braille_string_1 + braille_string
