@@ -2,14 +2,14 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/night_writer'
-require '.lib/translator'
+require './lib/translator'
 require './lib/dictionary'
-require '.lib/message'
+require './lib/message'
 
 class NightWriterTest < Minitest::Test
   def setup
-    @dictionary = Dictionary.new
-    @night_writer = NightWriter.new(@dictionary)
+    skip
+    @night_writer = NightWriter.new
   end
 
   def test_it_exists
@@ -19,10 +19,11 @@ class NightWriterTest < Minitest::Test
 
   def test_it_has_attributes
     skip
-    assert_equal @dictionary, @night_writer.dictionary
+    assert_equal 3, @night_writer.ARGV.length
   end
 
   def test_translate_to_braille
+    skip
     @message = "a"
     expected = [["0", "."], [".", "."], [".", "."]]
 

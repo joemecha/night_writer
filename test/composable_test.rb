@@ -9,6 +9,7 @@ class ComposableTest < Minitest::Test
   end
 
   def test_read_message_file
+    skip 
     @nite_riter.read_message_file("test_message.txt")
     assert_equal ["a"], @nite_riter.message
   end
