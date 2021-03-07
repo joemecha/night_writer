@@ -9,7 +9,6 @@ class NightWriter
   attr_reader :translator
 
   def initialize
-    # @dictionary = dictionary
     @read_file_name = ARGV[0]
     @write_file_name = ARGV[1]
     @read_file_chars = 0
@@ -18,9 +17,9 @@ class NightWriter
   def compose
     message = Message.new
     contents = read_message_file(@read_file_name).join
-
     message.add_content(contents)
     @read_file_chars = message.character_count
+
     translator = Translator.new(message)
     new_contents = translator.translate
 
