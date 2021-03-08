@@ -22,7 +22,6 @@ class TranslatorTest < Minitest::Test
 
   def test_translate_to_braille
     expected = "0.0.00\n..0...\n......"
-
     assert_equal expected, @translator.translate_to_braille
   end
 
@@ -36,9 +35,17 @@ def test_translate_to_english
     assert_equal expected, translator2.translate_to_english
   end
 
-  def test_translate
+  def test_translate_either_way
     expected = "0.0.00\n..0...\n......"
     assert_equal expected, @translator.translate
+
+    characters_2 = "000.00\n.0.00.\n......"
+    message_2 = Message.new
+    message_2.add_content(characters_2)
+    translator2 = Translator.new(message_2)
+    expected2 = "def"
+
+    assert_equal expected2, translator2.translate
   end
 
   def test_create_array_of_braille
@@ -257,5 +264,21 @@ def test_translate_to_english
 ....0."
 
     assert_equal expected, @translator.convert_braille_array_to_string(array)
+  end
+
+  def test_translate_multiple_lines_braille_to_english
+    so_many_characters =
+".0000.0.0..00.0.0.000.00.0.00.0..00.0..0.00.00000.000..0000.0.000..00..000.0000.
+0..00.00..0.0.0..0....0.0.00..0.0..0..000..0.0...0...00.0.00.0....0.000.0.00..00
+..0...0.....0.0.......0...0...0...00..0...0.0...0.0...0...0.0.0...0.......0.....
+0.0.0.00.00.0.
+..00....00.000
+..0.....0...0."
+    long_message = Message.new
+    long_message.add_content(so_many_characters)
+    translator2 = Translator.new(long_message)
+    expected = "inbraillecapitalizationcomesfromashiftcharacter"
+
+    assert_equal expected, translator2.translate_to_english
   end
 end

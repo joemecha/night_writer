@@ -16,18 +16,17 @@ class NightReader
 
   def compose
     message = Message.new
-    contents = read_message_file(@read_file_name).join
+    contents = read_message_file(@read_file_name) #.join
     message.add_content(contents)
     @read_file_chars = message.character_count / 6
 
-    # translator = Translator.new(message)
-    # new_contents = translator.translate
-    #
-    # write_file(@write_file_name, new_contents)
+    translator = Translator.new(message)
+    new_contents = translator.translate
+    write_file(@write_file_name, new_contents)
 
     message_to_user
   end
-  end
+end
 
   # ============================================================================
   night_reader = NightReader.new

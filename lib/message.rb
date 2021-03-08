@@ -10,15 +10,13 @@ class Message
   end
 
   def add_content(characters)
-    if characters.class == String
+    if characters.class == String # English input
       @content += characters
-      is_braille?
-      if braille
-        @character_count = @content.length - @content.count("\n") / 2
-      else
-        @character_count = @content.length - @content.count("\n")
-      end
+    else # Braille input
+      @content += characters.join("\n")
     end
+    @character_count = @content.length - @content.count("\n")
+    is_braille?
   end
 
   def is_braille?

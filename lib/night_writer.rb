@@ -22,7 +22,6 @@ class NightWriter
 
     translator = Translator.new(message)
     new_contents = translator.translate
-
     write_file(@write_file_name, new_contents)
 
     message_to_user

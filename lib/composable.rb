@@ -14,9 +14,11 @@ module Composable
 
   def message_to_user
     if @read_file_chars == 1
-      p "Created '#{@write_file_name}' containing #{@read_file_chars} character"
+      p "Created '#{@write_file_name}' containing "\
+      "#{@read_file_chars} character"
     else
-      p "Created '#{@write_file_name}' containing #{@read_file_chars} characters"
+      p "Created '#{@write_file_name}' containing "\
+      "#{@read_file_chars} characters"
     end
   end
 end
