@@ -13,7 +13,6 @@ class MessageTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 0, @message1.character_count
-    assert_nil @message1.english
     assert_nil @message1.braille
   end
 
