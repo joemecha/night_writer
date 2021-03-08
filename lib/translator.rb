@@ -22,11 +22,11 @@ class Translator
     @braille_message = Message.new
     english_input_split = @message.content
                              .downcase
-                             .gsub(/[^a-z .,'\-!?]/i, "$")
+                             .gsub(/[^a-z .,'!?]/i, "$")
                              .chars
-
     array_of_braille = create_array_of_braille(english_input_split)
-    string_of_braille = convert_braille_array_to_string(array_of_braille)
+    string_of_braille = convert_braille_array_to_string(array_of_braille) # PROBLEM IS HERE
+    # require "pry"; binding.pry
     @braille_message.add_content(string_of_braille)
     return string_of_braille
   end
@@ -35,8 +35,8 @@ class Translator
     @english_message = Message.new
     string_of_lines = @message.content
     array_of_braille = split_braille_input(string_of_lines)
-    string_of_english = convert_to_english(array_of_braille)
 
+    string_of_english = convert_to_english(array_of_braille)
     if string_of_english.length > 80
       string_of_english = wrap_english(string_of_english)
     end
@@ -52,40 +52,42 @@ class Translator
 
   def convert_braille_array_to_string(array)
     braille_string = ""
-    braille_string_1 = ""
     if array.length <= 40
       stringify_braille_arrays(array, braille_string)
     else
       while array.length > 40
-        array_1 = array[0..39]
+        braille_string_front = ""
+        array_front = array[0..39]
         array = array[40..(array.length)]
-        string_memo = stringify_braille_arrays(array_1, braille_string_1)
-        braille_string_1 += string_memo + "\n"
+        braille_string_front = stringify_braille_arrays(array_front, braille_string_front)
+        braille_string += braille_string_front + "\n"
       end
-      string_memo = stringify_braille_arrays(array, braille_string)
-      braille_string = braille_string_1 + string_memo
+      braille_string_remainder = ""
+      string_memo = stringify_braille_arrays(array, braille_string_remainder)
+      braille_string += string_memo
     end
   end
 
-  def stringify_braille_arrays(array, braille_string)
+  def stringify_braille_arrays(array, string)
     array.each do |character|
-      braille_string += character[0].join
+      string += character[0].join
     end
-    braille_string += "\n"
+    string += "\n"
     array.each do |character|
-      braille_string += character[1].join
+      string += character[1].join
     end
-    braille_string += "\n"
+    string += "\n"
     array.each do |character|
-      braille_string += character[2].join
+      string += character[2].join
     end
-    braille_string
+    string
   end
 
   def split_braille_input(string)
     braille_input_split = string.gsub(/[^0.\n]/, "$")
                                 .split("\n")
     array_of_chars = []
+
     while braille_input_split.length >= 3
       top_line = braille_input_split[0].chars
       middle_line = braille_input_split[1].chars
@@ -123,6 +125,7 @@ class Translator
   end
 end
 
+  # USE LOGIC FOR HANDLING NUMBERS???
   # def char_to_braille(char)
   #   if english_braille.has_key?(char)
   #     return english_braille[char]

@@ -268,16 +268,16 @@ def test_translate_to_english
 
   def test_translate_multiple_lines_braille_to_english
     so_many_characters =
-".0000.0.0..00.0.0.000.00.0.00.0..00.0..0.00.00000.000..0000.0.000..00..000.0000.
-0..00.00..0.0.0..0....0.0.00..0.0..0..000..0.0...0...00.0.00.0....0.000.0.00..00
-..0...0.....0.0.......0...0...0...00..0...0.0...0.0...0...0.0.0...0.......0.....
-0.0.0.00.00.0.
-..00....00.000
-..0.....0...0."
+".000..0.0.0..00.0.0...000.00.0.00.0..00.0..0.00.00..000.000..0..000.0.00..0....0
+0..0..0.00..0.0.0..0......0.0.00..0.0..0..000..0.0.....0...00...0.00.0........0.
+..0.....0.....0.0.........0...0...0...00..0...0.0.....0.0...0.....0.0.0.......0.
+0..000.0..000.0.0.0.00.00.0.
+000.0.00....00..00....00.000
+......0.........0.....0...0."
     long_message = Message.new
     long_message.add_content(so_many_characters)
     translator2 = Translator.new(long_message)
-    expected = "inbraillecapitalizationcomesfromashiftcharacter"
+    expected = "in braille capitalization comes from a shift character"
 
     assert_equal expected, translator2.translate_to_english
   end

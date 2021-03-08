@@ -16,16 +16,15 @@ class NightWriter
 
   def compose
     message = Message.new
-    contents = read_message_file(@read_file_name).join
-    # require "pry"; binding.pry
+    contents = read(@read_file_name)
     message.add_content(contents)
     @read_file_chars = message.character_count
 
     translator = Translator.new(message)
     new_contents = translator.translate
-    write_file(@write_file_name, new_contents)
+    write(@write_file_name, new_contents)
 
-    message_to_user
+    display_message
   end
 end
 

@@ -8,7 +8,6 @@ require './lib/message'
 
 class NightReaderTest < Minitest::Test
   def setup
-    skip
     @night_reader = NightReader.new
   end
 

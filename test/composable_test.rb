@@ -9,21 +9,21 @@ class ComposableTest < Minitest::Test
   end
 
   def test_read_message_file
-    skip 
-    @nite_riter.read_message_file("test_message.txt")
+    skip
+    @nite_riter.read("test_message.txt")
     assert_equal ["a"], @nite_riter.message
   end
 
   def test_write_file
     skip
     @message = "Is this thing on?"
-    @nite_riter.write_file("test.txt")
+    @nite_riter.write("test.txt")
   end
 
   def test_message_to_user
     skip
     expected = "Created 'test.txt' containing 0 characters"
-    assert_equal expected, @nite_riter.message_to_user
+    assert_equal expected, @nite_riter.display_message
   end
 end
 
