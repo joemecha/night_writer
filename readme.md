@@ -54,19 +54,28 @@ ruby (note: '$' is not typed).
    ```
    $ ruby ./lib/night_writer.rb <text file name>.txt <new file name>.txt
    ```
+   To convert Braille to English, run _night_reader_ by entering the following into Terminal
+      ```
+      $ ruby ./lib/night_reader.rb <braille file name>.txt <new file name>.txt
+      ```
 
 ## Features
 List of features ready and TODOs for future development
-* Program uses command line ARGV for external file reading and writing
-* English messages are translated into Braille characters, which are written to an external file.
-* Valid characters: " !',-.?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP
-QRSTUVWXYZ"_Note: uppercase letters are currently rendered as lowercase_
-* Program handles invalid characters by returning a blank
-* Text wrapping of any length above 80 characters
+* __Night Writer__ uses command line ARGV and a File I/O module for external file reading
+  and writing
+* English messages are translated into Braille characters, which are written to
+  an external file.
+* Companion class __Night Reader__ reads braille text files and writes the
+  English translation to the designated file.
+* Input validation:
+   - Valid characters are defined by regex: " !',.?abcdefghijklmnopqrstuvwxyzABC
+    DEFGHIJKLMNOPQRSTUVWXYZ" _Note: uppercase letters are currently rendered_
+    _as lowercase_
+   - Program handles invalid characters by returning a blank using #gsub
+* Text wrapping of any line length greater than 80 characters (40 in Braille)
 
 To-do list:
-* Project is currently in _"Iteration 3"_ of development
-* Braille-to-English translation in progress
+* Project is currently in _"Iteration 4"_ of development
 * Refactoring
 * Support for additional character types
 
@@ -79,4 +88,4 @@ Created by
 
 ~ feel free to contact me ~
 
-![Braille image](/images/braille_image.jpg "braille image")
+![Night writing image](/images/knight-rider-barbier-de-la-serr.jpg "Night writing inventor Charles Barbier de la Serre")
