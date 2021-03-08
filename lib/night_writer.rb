@@ -17,6 +17,7 @@ class NightWriter
   def compose
     message = Message.new
     contents = read_message_file(@read_file_name).join
+    # require "pry"; binding.pry
     message.add_content(contents)
     @read_file_chars = message.character_count
 
@@ -28,6 +29,13 @@ class NightWriter
   end
 end
 
-# ============================================================================
-night_writer = NightWriter.new
-night_writer.compose
+# ==============================================================================
+if ARGV.length != 2
+  puts "Night Writer requires two arguments:"
+  puts "ruby lib/night_writer.rb <message-filename>.txt <encoded-filename>.txt"
+  puts "=" * 80
+  exit
+else
+  night_writer = NightWriter.new
+  night_writer.compose
+end

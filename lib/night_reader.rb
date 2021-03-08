@@ -16,7 +16,7 @@ class NightReader
 
   def compose
     message = Message.new
-    contents = read_message_file(@read_file_name) #.join
+    contents = read_message_file(@read_file_name)
     message.add_content(contents)
     @read_file_chars = message.character_count / 6
 
@@ -28,6 +28,13 @@ class NightReader
   end
 end
 
-  # ============================================================================
+# ==============================================================================
+if ARGV.length != 2
+  puts "Night Reader requires two arguments:"
+  puts "ruby lib/night_reader.rb <message-filename>.txt <encoded-filename>.txt"
+  puts "=" * 80
+  exit
+else
   night_reader = NightReader.new
   night_reader.compose
+end
