@@ -1,12 +1,10 @@
 class Message
   attr_reader :character_count,
               :content,
-              :braille
 
   def initialize
     @content = ""
     @character_count = 0
-    @braille = nil
   end
 
   def add_content(characters)
@@ -20,7 +18,7 @@ class Message
   end
 
   def is_braille?
-    @braille = @content.count("abcdefghijklmnopqrstuvwxyz").zero?
-    return @braille
+    @content.count("abcdefghijklmnopqrstuvwxyz\
+                                ABCDEFGHIJKLMNOPQRSTUVWXYZ").zero?
   end
 end

@@ -1,7 +1,8 @@
 class Translator
     attr_reader :message,
                 :braille_message,
-                :english_message
+                :english_message,
+                :dictionary
 
   def initialize(message)
     @message = message
@@ -20,10 +21,7 @@ class Translator
 
   def translate_to_braille
     @braille_message = Message.new
-    english_input_split = @message.content
-                                  .downcase
-                                  .gsub(/[^a-z .,'!?]/i, "$")
-                                  .chars
+    english_input_split = split_english_input(@message)
     array_of_braille = create_array_of_braille(english_input_split)
     string_of_braille = convert_braille_array_to_string(array_of_braille)
     @braille_message.add_content(string_of_braille)
@@ -37,6 +35,13 @@ class Translator
     string_of_english = convert_to_english(array_of_braille)
     @english_message.add_content(string_of_english)
     return string_of_english
+  end
+
+  def split_english_input(message)
+    @message.content
+            .downcase
+            .gsub(/[^a-z .,'!?]/i, "$")
+            .chars
   end
 
   def create_array_of_braille(array)

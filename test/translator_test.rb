@@ -18,6 +18,7 @@ class TranslatorTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal @message_1, @translator.message
+    assert_instance_of Dictionary, @translator.dictionary
   end
 
   def test_translate_to_braille
@@ -25,7 +26,7 @@ class TranslatorTest < Minitest::Test
     assert_equal expected, @translator.translate_to_braille
   end
 
-def test_translate_to_english
+  def test_translate_to_english
     characters_2 = "000.00\n.0.00.\n......"
     message_2 = Message.new
     message_2.add_content(characters_2)
@@ -46,6 +47,10 @@ def test_translate_to_english
     expected2 = "def"
 
     assert_equal expected2, translator2.translate
+  end
+
+  def test_split_english_input
+    assert_equal ["a", "b", "c"], @translator.split_english_input(@message_1)
   end
 
   def test_create_array_of_braille
@@ -268,12 +273,9 @@ def test_translate_to_english
 
   def test_translate_multiple_lines_braille_to_english
     so_many_characters =
-".000..0.0.0..00.0.0...000.00.0.00.0..00.0..0.00.00..000.000..0..000.0.00..0....0
-0..0..0.00..0.0.0..0......0.0.00..0.0..0..000..0.0.....0...00...0.00.0........0.
-..0.....0.....0.0.........0...0...0...00..0...0.0.....0.0...0.....0.0.0.......0.
-0..000.0..000.0.0.0.00.00.0.
-000.0.00....00..00....00.000
-......0.........0.....0...0."
+".000..0.0.0..00.0.0...000.00.0.00.0..00.0..0.00.00..000.000..0..000.0.00..0....00..000.0..000.0.0.0.00.00.0.
+0..0..0.00..0.0.0..0......0.0.00..0.0..0..000..0.0.....0...00...0.00.0........0.000.0.00....00..00....00.000
+..0.....0.....0.0.........0...0...0...00..0...0.0.....0.0...0.....0.0.0.......0.......0.........0.....0...0."
     long_message = Message.new
     long_message.add_content(so_many_characters)
     translator2 = Translator.new(long_message)
@@ -281,4 +283,47 @@ def test_translate_to_english
 
     assert_equal expected, translator2.translate_to_english
   end
+
+  def test_sort_long_braille_input
+  end
+
+  def test_stringify_braille_arrays
+  end
+
+  def test_split_braille_input
+    braille_string = "0.0.00\n..0...\n......"
+    expected = [[["0."], [".."], [".."]], [["0."], ["0."], [".."]], [["00"], [".."], [".."]]]
+    assert_equal expected, @translator.split_braille_input(braille_string)
+  end
+
+  # def test_sort_lines_into_character_arrays
+  #   input_array = [[["0", "."], [".", "."], [".", "."]], [["0", "."], ["0", "."],
+  #               [".", "."]], [["0", "0"], [".", "."], [".", "."]]]
+  #   characters_array = []
+  #   expected = []
+  #   assert_equal expected, @translator.sort_lines_into_character_arrays(input_array, characters_array)
+  # end
+
+  def test_convert_to_english
+    skip
+    braille_array = []
+    assert_equal expected, @translator.convert_to_english(braille_array)
+  end
+
+  def test_wrap_english
+    string = "01234567890123456789012345678901234567890123456789012345678901234567890123456789A"
+    expected = "01234567890123456789012345678901234567890123456789012345678901234567890123456789\nA"
+    assert_equal expected, @translator.wrap_english(string)
+  end
+
+  # def test_translate_to_braille_with_numbers # Code for this on 'numbering' branch
+  #   some_numbers = "Today is March 9th."
+  #   numbers_message = Message.new
+  #   @message_1.add_content(some_numbers)
+  #   translator = Translator.new(numbers_message)
+  #
+  #   expected = []
+  #
+  #   assert_equal expected, translator.translate_to_braille
+  # end
 end

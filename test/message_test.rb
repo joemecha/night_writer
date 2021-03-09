@@ -12,8 +12,8 @@ class MessageTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    assert_equal "", @message1.content
     assert_equal 0, @message1.character_count
-    assert_nil @message1.braille
   end
 
   def test_add_content
@@ -22,6 +22,7 @@ class MessageTest < Minitest::Test
 
     assert_equal characters, @message1.content
     assert_equal 12, @message1.character_count
+    assert_equal false, @message1.is_braille?
   end
 
   def test_is_braille
