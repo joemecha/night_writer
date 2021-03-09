@@ -6,7 +6,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
-* [Learning Goals/Areas of Focus](#learning-goals/areas-of-focus)
+* [Learning Goals/Areas of Focus](#learning-goals)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#features)
@@ -25,7 +25,7 @@ _Night writing_ - once a proposed method for soldiers to communicate silently at
 ## Screenshots
 ![Night Writer screenshots](https://github.com/joemecha/night_writer/blob/main/images/night_writer.gif "Animated screenshots")
 
-## Learning Goals/Areas of Focus
+## Learning Goals / Areas of Focus
 * Practice breaking a program into logical components
 * Testing components in isolation and in combination
 * Applying enumerable techniques in a real context
@@ -52,11 +52,11 @@ ruby (note: '$' is not typed).
 3. Add your text file.
 4. Run _night_writer_ by entering the following into Terminal
    ```
-   $ ruby ./lib/night_writer.rb <text file name>.txt <new file name>.txt
+   $ ruby lib/night_writer.rb <text file name>.txt <new file name>.txt
    ```
    To convert Braille to English, run _night_reader_ by entering the following into Terminal
       ```
-      $ ruby ./lib/night_reader.rb <braille file name>.txt <new file name>.txt
+      $ ruby lib/night_reader.rb <braille file name>.txt <new file name>.txt
       ```
 
 ## Features
