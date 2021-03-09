@@ -129,14 +129,3 @@ class Translator
     return string_of_english
   end
 end
-
-  # USE LOGIC FOR HANDLING NUMBERS???
-  # def char_to_braille(char)
-  #   if english_braille.has_key?(char)
-  #     return english_braille[char]
-  #   elsif numbers_braille.has_key?(char)
-  #     return numbers_braille["#"], numbers_braille[char]
-  #   else
-  #     return [[" ", " "], [" ", " "], [" ", " "]]
-  #   end
-  # end
