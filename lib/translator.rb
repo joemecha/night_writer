@@ -22,7 +22,7 @@ class Translator
     @braille_message = Message.new
     english_input_split = @message.content
                                   .downcase
-                                  .gsub(/[^a-z .,'!?]/i, "$") # TODO update with 0-9
+                                  .gsub(/[^a-z0-9 .,'!?]/i, "$")
                                   .chars
     array_of_braille = create_array_of_braille(english_input_split)
     string_of_braille = convert_braille_array_to_string(array_of_braille)
@@ -40,9 +40,16 @@ class Translator
   end
 
   def create_array_of_braille(array)
-    array.map do |character|
-      @dictionary.english_braille[character]
+    braille_array = []
+    array.each do |character|
+      if ("0123456789").include?(character)
+        braille_array.push(@dictionary.numbers_braille["#"],
+                           @dictionary.numbers_braille[character])
+      else
+        braille_array << @dictionary.english_braille[character]
+      end
     end
+    braille_array
   end
 
   def convert_braille_array_to_string(array)
@@ -50,18 +57,27 @@ class Translator
     if array.length <= 40
       stringify_braille_arrays(array, braille_string)
     else
-      sort_long_braille_input(array, braille_string)
+      sort_long_braille_input(array, braille_string) # NUMBERING TROUBLE HERE
     end
   end
 
-  def sort_long_braille_input(long_array, braille_string)
+  def sort_long_braille_input(long_array, braille_string)  # NUMBERING TROUBLE, LONG ARRAYS WITH NO NUMBERS FAIL TOO
     while long_array.length > 40
       braille_string_front = ""
-      array_front = long_array[0..39]
-      long_braille_array = long_array[40..(long_array.length)]
-      braille_string_front = stringify_braille_arrays(array_front,
-                                                      braille_string_front)
-      braille_string += braille_string_front + "\n"
+      # require "pry"; binding.pry
+      if long_array[39] == @dictionary.numbers_braille["#"]
+        array_front = long_array[0..35]
+        long_braille_array = long_array[36..(long_array.length)]
+        braille_string_front = stringify_braille_arrays(array_front,
+                                                        braille_string_front)
+        braille_string += braille_string_front + "\n"
+      else
+        array_front = long_array[0..35]
+        long_braille_array = long_array[36..(long_array.length)]
+        braille_string_front = stringify_braille_arrays(array_front,
+                                                        braille_string_front)
+        braille_string += braille_string_front + "\n"
+      end
     end
     braille_string_remainder = ""
     string_memo = stringify_braille_arrays(long_array, braille_string_remainder)
@@ -71,7 +87,7 @@ class Translator
   def stringify_braille_arrays(array, string)
     array.each do |character|
       string += character[0].join
-    end
+    end                               # GETS STUCK IN THIS METHOD TOO IF LONG INPUT
     string += "\n"
     array.each do |character|
       string += character[1].join
