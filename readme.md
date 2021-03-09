@@ -23,7 +23,7 @@ _Night writing_ - once a proposed method for soldiers to communicate silently at
  developed it into the well-known six-dot cell system.
 
 ## Screenshots
-<add images here>
+![Night Writer screenshots](https://github.com/joemecha/night_writer/images/night_writer.gif "Animated screenshots")
 
 ## Learning Goals/Areas of Focus
 * Practice breaking a program into logical components
