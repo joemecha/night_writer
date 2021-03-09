@@ -6,7 +6,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
-* [Learning Goals/Areas of Focus](#learning-goals)
+* [Learning Goals/Areas of Focus](#learning-goals/areas-of-focus)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#features)
@@ -25,7 +25,7 @@ _Night writing_ - once a proposed method for soldiers to communicate silently at
 ## Screenshots
 <add images here>
 
-## Learning Goals / Areas of Focus
+## Learning Goals/Areas of Focus
 * Practice breaking a program into logical components
 * Testing components in isolation and in combination
 * Applying enumerable techniques in a real context
@@ -76,8 +76,10 @@ List of features ready and TODOs for future development
 
 To-do list:
 * Project is currently in _"Iteration 4"_ of development
-* Refactoring
-* Support for numeric characters
+* Fix incorrect output from _night_reader_ when inputing more than 5 lines of
+  Braille (15 lines of dots)
+* Improve support for numeric characters. Currently can handle English messages
+  up to 40 characters that contain numerals
 
 ## Status
 Project is: _in progress_

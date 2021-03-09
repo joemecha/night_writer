@@ -22,7 +22,7 @@ class Translator
     @braille_message = Message.new
     english_input_split = @message.content
                                   .downcase
-                                  .gsub(/[^a-z .,'!?]/i, "$") # TODO update with 0-9
+                                  .gsub(/[^a-z .,'!?]/i, "$")
                                   .chars
     array_of_braille = create_array_of_braille(english_input_split)
     string_of_braille = convert_braille_array_to_string(array_of_braille)
@@ -58,7 +58,7 @@ class Translator
     while long_array.length > 40
       braille_string_front = ""
       array_front = long_array[0..39]
-      long_braille_array = long_array[40..(long_array.length)]
+      long_array = long_array[40..(long_array.length)]
       braille_string_front = stringify_braille_arrays(array_front,
                                                       braille_string_front)
       braille_string += braille_string_front + "\n"
