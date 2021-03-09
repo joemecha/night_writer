@@ -64,14 +64,14 @@ List of features ready and TODOs for future development
 * __Night Writer__ uses command line ARGV and a File I/O module for external file reading
   and writing
 * English messages are translated into Braille characters, which are written to
-  an external file.
+  the created file.
 * Companion class __Night Reader__ reads braille text files and writes the
-  English translation to the designated file.
+  English translation to a designated file.
 * Input validation:
-   - Valid characters are defined by regex: " !',.?abcdefghijklmnopqrstuvwxyzABC
-    DEFGHIJKLMNOPQRSTUVWXYZ" _Note: uppercase letters are currently rendered_
+   - Valid characters: " !',.?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+     are defined by regex in the code. _Note: uppercase letters are currently rendered_
     _as lowercase_
-   - Program handles invalid characters by returning "▽" using #gsub
+   - Program handles invalid characters by returning "%"
 * Text wrapping of any line length greater than 80 characters (40 in Braille)
 
 To-do list:
