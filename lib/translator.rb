@@ -21,12 +21,11 @@ class Translator
   def translate_to_braille
     @braille_message = Message.new
     english_input_split = @message.content
-                             .downcase
-                             .gsub(/[^a-z .,'!?]/i, "$")
-                             .chars
+                                  .downcase
+                                  .gsub(/[^a-z .,'!?]/i, "$") # TODO update with 0-9
+                                  .chars
     array_of_braille = create_array_of_braille(english_input_split)
-    string_of_braille = convert_braille_array_to_string(array_of_braille) # PROBLEM IS HERE
-    # require "pry"; binding.pry
+    string_of_braille = convert_braille_array_to_string(array_of_braille)
     @braille_message.add_content(string_of_braille)
     return string_of_braille
   end
@@ -35,11 +34,7 @@ class Translator
     @english_message = Message.new
     string_of_lines = @message.content
     array_of_braille = split_braille_input(string_of_lines)
-
     string_of_english = convert_to_english(array_of_braille)
-    if string_of_english.length > 80
-      string_of_english = wrap_english(string_of_english)
-    end
     @english_message.add_content(string_of_english)
     return string_of_english
   end
@@ -55,17 +50,22 @@ class Translator
     if array.length <= 40
       stringify_braille_arrays(array, braille_string)
     else
-      while array.length > 40
-        braille_string_front = ""
-        array_front = array[0..39]
-        array = array[40..(array.length)]
-        braille_string_front = stringify_braille_arrays(array_front, braille_string_front)
-        braille_string += braille_string_front + "\n"
-      end
-      braille_string_remainder = ""
-      string_memo = stringify_braille_arrays(array, braille_string_remainder)
-      braille_string += string_memo
+      sort_long_braille_input(array, braille_string)
     end
+  end
+
+  def sort_long_braille_input(long_array, braille_string)
+    while long_array.length > 40
+      braille_string_front = ""
+      array_front = long_array[0..39]
+      long_braille_array = long_array[40..(long_array.length)]
+      braille_string_front = stringify_braille_arrays(array_front,
+                                                      braille_string_front)
+      braille_string += braille_string_front + "\n"
+    end
+    braille_string_remainder = ""
+    string_memo = stringify_braille_arrays(long_array, braille_string_remainder)
+    braille_string += string_memo
   end
 
   def stringify_braille_arrays(array, string)
@@ -87,30 +87,35 @@ class Translator
     braille_input_split = string.gsub(/[^0.\n]/, "$")
                                 .split("\n")
     array_of_chars = []
+    sort_lines_into_character_arrays(braille_input_split, array_of_chars)
+    array_of_chars
+  end
 
-    while braille_input_split.length >= 3
-      top_line = braille_input_split[0].chars
-      middle_line = braille_input_split[1].chars
-      bottom_line = braille_input_split[2].chars
-
+  def sort_lines_into_character_arrays(input_array, characters_array)
+    while input_array.length >= 3
+      top_line = input_array[0].chars
+      middle_line = input_array[1].chars
+      bottom_line = input_array[2].chars
       until top_line == [] do
-        array_of_chars << [[top_line[0] + top_line[1]],
-                           [middle_line[0] + middle_line[1]],
-                           [bottom_line[0] + bottom_line[1]]
-                           ]
+        characters_array << [ [top_line[0] + top_line[1]],
+                              [middle_line[0] + middle_line[1]],
+                              [bottom_line[0] + bottom_line[1]] ]
         top_line.shift(2)
         middle_line.shift(2)
         bottom_line.shift(2)
       end
-      braille_input_split.slice!(0..2)
+      input_array.slice!(0..2)
     end
-    array_of_chars
   end
 
   def convert_to_english(array)
     string_of_english = array.map do |character|
       @dictionary.braille_english[character]
     end.join
+    if string_of_english.length > 80
+      string_of_english = wrap_english(string_of_english)
+    end
+    string_of_english
   end
 
   def wrap_english(string)

@@ -71,13 +71,13 @@ List of features ready and TODOs for future development
    - Valid characters are defined by regex: " !',.?abcdefghijklmnopqrstuvwxyzABC
     DEFGHIJKLMNOPQRSTUVWXYZ" _Note: uppercase letters are currently rendered_
     _as lowercase_
-   - Program handles invalid characters by returning a blank using #gsub
+   - Program handles invalid characters by returning "▽" using #gsub
 * Text wrapping of any line length greater than 80 characters (40 in Braille)
 
 To-do list:
 * Project is currently in _"Iteration 4"_ of development
 * Refactoring
-* Support for additional character types
+* Support for numeric characters
 
 ## Status
 Project is: _in progress_
